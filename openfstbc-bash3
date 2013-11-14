@@ -3,16 +3,11 @@
 #name cur prev pprev options
 _completeenumerable ()
 {
-  if [[ $2 == = || $3 == = ]] ; then
-    if [[ $3 == *$1 ]] ; then
-      COMPREPLY=($(compgen -W "$5" -- ))
+    if [[ $2 == *$1=* ]] ; then
+      IFS='=' read prev cur <<< "$2"
+      COMPREPLY=($(compgen -W "$5" -- $cur)) 
       return 0
     fi
-    if [[ $4 == *$1 ]] ; then
-      COMPREPLY=($(compgen -W "$5" -- $2))
-      return 0
-    fi
-  fi
 }
 
 _fstarcsort() 
@@ -32,9 +27,9 @@ _fstarcsort()
     _completeenumerable sort_type ${cur} ${prev} ${pprev} "ilabel olabel"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstarcsort fstarcsort
@@ -55,9 +50,9 @@ _fstclosure()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstclosure fstclosure
@@ -80,9 +75,9 @@ _fstcompile()
     _completeenumerable fst_type ${cur} ${prev} ${pprev} "arc_lookahead compact16_acceptor compact16_string compact16_unweighted compact16_unweighted_acceptor compact16_weighted_string compact64_acceptor compact64_string compact64_unweighted compact64_unweighted_acceptor compact64_weighted_string compact8_acceptor compact8_string compact8_unweighted compact8_unweighted_acceptor compact8_weighted_string compact_acceptor compact_string compact_unweighted compact_unweighted_acceptor compact_weighted_string const const16 const64 const8 edit ilabel_lookahead olabel_lookahead vector"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstcompile fstcompile
@@ -104,9 +99,9 @@ _fstcompose()
     _completeenumerable compose_filter ${cur} ${prev} ${pprev} "auto alt_sequence match sequence"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstcompose fstcompose
@@ -128,9 +123,9 @@ _fstconvert()
     _completeenumerable fst_type ${cur} ${prev} ${pprev} "arc_lookahead compact16_acceptor compact16_string compact16_unweighted compact16_unweighted_acceptor compact16_weighted_string compact64_acceptor compact64_string compact64_unweighted compact64_unweighted_acceptor compact64_weighted_string compact8_acceptor compact8_string compact8_unweighted compact8_unweighted_acceptor compact8_weighted_string compact_acceptor compact_string compact_unweighted compact_unweighted_acceptor compact_weighted_string const const16 const64 const8 edit ilabel_lookahead olabel_lookahead vector"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstconvert fstconvert
@@ -151,9 +146,9 @@ _fstdeterminize()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstdeterminize fstdeterminize
@@ -175,9 +170,9 @@ _fstdifference()
     _completeenumerable compose_filter ${cur} ${prev} ${pprev} "auto alt_sequence match sequence"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstdifference fstdifference
@@ -198,9 +193,9 @@ _fstdraw()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstdraw fstdraw
@@ -221,9 +216,9 @@ _fstencode()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstencode fstencode
@@ -244,9 +239,9 @@ _fstepsnormalize()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstepsnormalize fstepsnormalize
@@ -267,9 +262,9 @@ _fstequal()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstequal fstequal
@@ -291,9 +286,9 @@ _fstequivalent()
     _completeenumerable select ${cur} ${prev} ${pprev} "fast_log_prob log_prob uniform"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstequivalent fstequivalent
@@ -316,9 +311,9 @@ _fstinfo()
     _completeenumerable info_type ${cur} ${prev} ${pprev} "auto long short"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstinfo fstinfo
@@ -340,9 +335,9 @@ _fstintersect()
     _completeenumerable compose_filter ${cur} ${prev} ${pprev} "auto alt_sequence match sequence"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstintersect fstintersect
@@ -364,9 +359,9 @@ _fstmap()
     _completeenumerable map_type ${cur} ${prev} ${pprev} "arc_sum identity invert plus quantize rmweight superfinal times to_log to_log64 to_standard"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstmap fstmap
@@ -387,9 +382,9 @@ _fstminimize()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstminimize fstminimize
@@ -410,9 +405,9 @@ _fstprint()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstprint fstprint
@@ -433,9 +428,9 @@ _fstproject()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstproject fstproject
@@ -456,9 +451,9 @@ _fstprune()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstprune fstprune
@@ -479,9 +474,9 @@ _fstpush()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstpush fstpush
@@ -503,9 +498,9 @@ _fstrandgen()
     _completeenumerable select ${cur} ${prev} ${pprev} "fast_log_prob log_prob uniform"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstrandgen fstrandgen
@@ -526,9 +521,9 @@ _fstrelabel()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstrelabel fstrelabel
@@ -549,9 +544,9 @@ _fstreplace()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstreplace fstreplace
@@ -572,9 +567,9 @@ _fstreweight()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstreweight fstreweight
@@ -596,9 +591,9 @@ _fstrmepsilon()
     _completeenumerable queue_type ${cur} ${prev} ${pprev} "auto fifo lifo shortest state top"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstrmepsilon fstrmepsilon
@@ -620,9 +615,9 @@ _fstshortestdistance()
     _completeenumerable queue_type ${cur} ${prev} ${pprev} "auto fifo lifo shortest state top"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstshortestdistance fstshortestdistance
@@ -644,9 +639,9 @@ _fstshortestpath()
     _completeenumerable queue_type ${cur} ${prev} ${pprev} "auto fifo lifo shortest state top"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstshortestpath fstshortestpath
@@ -667,9 +662,9 @@ _fstsymbols()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _fstsymbols fstsymbols
@@ -695,9 +690,9 @@ _farcompilestrings()
     _completeenumerable token_type ${cur} ${prev} ${pprev} "symbol byte utf8"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farcompilestrings farcompilestrings
@@ -719,9 +714,9 @@ _farcreate()
     _completeenumerable far_type ${cur} ${prev} ${pprev} "default stlist sttable"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farcreate farcreate
@@ -742,9 +737,9 @@ _farequal()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farequal farequal
@@ -765,9 +760,9 @@ _farextract()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farextract farextract
@@ -788,9 +783,9 @@ _farinfo()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farinfo farinfo
@@ -813,9 +808,9 @@ _farprintstrings()
     _completeenumerable token_type ${cur} ${prev} ${pprev} "symbol byte utf8"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _farprintstrings farprintstrings
@@ -837,9 +832,9 @@ _pdtcompose()
     _completeenumerable compose_filter ${cur} ${prev} ${pprev} "expand expand_paren paren"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtcompose pdtcompose
@@ -860,9 +855,9 @@ _pdtexpand()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtexpand pdtexpand
@@ -883,9 +878,9 @@ _pdtinfo()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtinfo pdtinfo
@@ -906,9 +901,9 @@ _pdtreplace()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtreplace pdtreplace
@@ -929,9 +924,9 @@ _pdtreverse()
 
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtreverse pdtreverse
@@ -953,9 +948,9 @@ _pdtshortestpath()
     _completeenumerable queue_type ${cur} ${prev} ${pprev} "fifo lifo state"
     
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _pdtshortestpath pdtshortestpath

@@ -21,16 +21,11 @@ header = """
 #name cur prev pprev options
 _completeenumerable ()
 {
-  if [[ $2 == = || $3 == = ]] ; then
-    if [[ $3 == *$1 ]] ; then
-      COMPREPLY=($(compgen -W "$5" -- ))
+    if [[ $2 == *$1=* ]] ; then
+      IFS='=' read prev cur <<< "$2"
+      COMPREPLY=($(compgen -W "$5" -- $cur)) 
       return 0
     fi
-    if [[ $4 == *$1 ]] ; then
-      COMPREPLY=($(compgen -W "$5" -- $2))
-      return 0
-    fi
-  fi
 }
 """
 
@@ -50,9 +45,9 @@ cmd = """_CMD()
 
     $ENUMS
 
-    if [[ ${cur} == -* ]] ; then
-    COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
-    return 0
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
     fi
 }
 complete -o default -o nospace -F _CMD CMD"""
@@ -88,7 +83,7 @@ if __name__ == "__main__":
                 #print >> sys.stderr, s
             #print  >> sys.stderr, e
             #print opts
-            if len(opts) > 0:      
+            if len(opts) > 0 and base not in ['strings']:      
               ncmd  = cmd.replace("OPTS",opts).replace("CMD",base).replace("$ENUMS",e)
               print ncmd
               print ""
