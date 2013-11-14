@@ -10,9 +10,10 @@ Tested on Ubuntu 10.04 using bash 4.5, Mac OS 10.9 using bash 3.2.
 
 To use simply source the completion file.
 
-    source openfstbc
+    source openfstbc          # for Bash 4
+    source openfstbc-bash3    # for Bash 3 (Mac OS X)
 
-These bash completions will add tab completion to the OpenFst flags. This file adds three types of completions based on the flag’s value type.
+These bash completions will add tab completion to OpenFst flags. This file adds three types of completions based on the flag’s value type.
 
 * Flags which accept a path or a numeric value will complete with a trailing `=` character and then default to the standard path completion.
 
