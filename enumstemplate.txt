@@ -23,3 +23,4 @@ farprintstrings entry_type file line
 farprintstrings token_type symbol byte utf8
 pdtcompose compose_filter expand expand_paren paren
 pdtshortestpath queue_type fifo lifo state
+fstlinear arc_type log standard

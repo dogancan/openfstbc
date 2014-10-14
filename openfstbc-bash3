@@ -142,7 +142,7 @@ _fstdeterminize()
       pprev="NULL"
     fi
 
-    opts="--delta= --nstate= --weight= --subsequential_label= "
+    opts="--delta= --nstate= --weight= --subsequential_label= --disambiguate_output "
 
     
 
@@ -176,6 +176,29 @@ _fstdifference()
     fi
 }
 complete -o default -o nospace -F _fstdifference fstdifference
+
+_fstdisambiguate() 
+{
+    local cur prev opts filters len pprev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    if (( $COMP_CWORD > 2)) ; then
+      pprev="${COMP_WORDS[COMP_CWORD-2]}"
+    else
+      pprev="NULL"
+    fi
+
+    opts="--delta= --nstate= --weight= --subsequential_label= "
+
+    
+
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
+    fi
+}
+complete -o default -o nospace -F _fstdisambiguate fstdisambiguate
 
 _fstdraw() 
 {
@@ -540,7 +563,7 @@ _fstreplace()
       pprev="NULL"
     fi
 
-    opts="--epsilon_on_replace "
+    opts="--call_arc_labeling= --return_arc_labeling= --return_label= --epsilon_on_replace "
 
     
 
@@ -550,6 +573,29 @@ _fstreplace()
     fi
 }
 complete -o default -o nospace -F _fstreplace fstreplace
+
+_fstreverse() 
+{
+    local cur prev opts filters len pprev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    if (( $COMP_CWORD > 2)) ; then
+      pprev="${COMP_WORDS[COMP_CWORD-2]}"
+    else
+      pprev="NULL"
+    fi
+
+    opts="--require_superinitial "
+
+    
+
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
+    fi
+}
+complete -o default -o nospace -F _fstreverse fstreverse
 
 _fstreweight() 
 {
@@ -954,4 +1000,51 @@ _pdtshortestpath()
     fi
 }
 complete -o default -o nospace -F _pdtshortestpath pdtshortestpath
+
+_fstlinear() 
+{
+    local cur prev opts filters len pprev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    if (( $COMP_CWORD > 2)) ; then
+      pprev="${COMP_WORDS[COMP_CWORD-2]}"
+    else
+      pprev="NULL"
+    fi
+
+    opts="--classifier --arc_type= --delimiter= --empty_symbol= --start_symbol= --end_symbol= --epsilon_symbol= --unknown_symbol= --save_isymbols= --save_fsymbols= --save_osymbols= "
+
+    _completeenumerable arc_type ${cur} ${prev} ${pprev} "log standard"
+    
+
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
+    fi
+}
+complete -o default -o nospace -F _fstlinear fstlinear
+
+_fstloglinearapply() 
+{
+    local cur prev opts filters len pprev
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    if (( $COMP_CWORD > 2)) ; then
+      pprev="${COMP_WORDS[COMP_CWORD-2]}"
+    else
+      pprev="NULL"
+    fi
+
+    opts="--normalize "
+
+    
+
+    if [[ ${cur} == -* && $cur != *=* ]] ; then
+        COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+        return 0
+    fi
+}
+complete -o default -o nospace -F _fstloglinearapply fstloglinearapply
 
